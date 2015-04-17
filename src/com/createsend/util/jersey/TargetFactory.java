@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2013 James Dennes
+ * Copyright (c) 2011 Toby Brain
  * 
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -21,32 +21,22 @@
  */
 package com.createsend.util.jersey;
 
-import javax.ws.rs.client.ClientRequestContext;
-import javax.ws.rs.client.ClientRequestFilter;
-import javax.ws.rs.core.HttpHeaders;
-import java.io.IOException;
+import com.createsend.util.Configuration;
 
-/**
- * Client filter adding Authorization header containing OAuth2 bearer token
- * to the HTTP request, if no such header is already present
- */
-public final class OAuth2BearerTokenFilter implements ClientRequestFilter {
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.WebTarget;
 
-    private final String authentication;
+public abstract class TargetFactory {
 
-    /**
-     * Creates a new OAuth2 bearer token filter using provided access token.
-     *
-     * @param accessToken The OAuth2 access token to be used in the HTTP request.
-     */
-    public OAuth2BearerTokenFilter(final String accessToken) {
-        authentication = "Bearer " + accessToken;
+    public WebTarget getTarget(Client client, String... pathElements) {
+    	return getTarget(Configuration.Current.getApiEndpoint(), client, pathElements);
     }
 
-    @Override
-    public void filter(ClientRequestContext requestContext) throws IOException {
-        if (!requestContext.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
-            requestContext.getHeaders().add(HttpHeaders.AUTHORIZATION, authentication);
+	public WebTarget getTarget(String baseUri, Client client, String... pathElements) {
+        WebTarget resource = client.target(baseUri);
+        for (String pathElement : pathElements) {
+            resource = resource.path(pathElement);
         }
-    }
+        return resource;
+	}
 }

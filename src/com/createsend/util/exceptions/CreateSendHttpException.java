@@ -21,8 +21,7 @@
  */
 package com.createsend.util.exceptions;
 
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.ClientResponse.Status;
+import javax.ws.rs.core.Response;
 
 /**
  * An exception raised on any HTTP based error. i.e Status code >= 400
@@ -30,11 +29,11 @@ import com.sun.jersey.api.client.ClientResponse.Status;
 public class CreateSendHttpException extends CreateSendException {
     private static final long serialVersionUID = 6026680795882633621L;
 
-    private ClientResponse.Status httpStatusCode;
+    private Response.Status httpStatusCode;
     private int apiErrorCode;
     private String apiErrorMessage;
 
-    public CreateSendHttpException(Status httpStatusCode) {
+    public CreateSendHttpException(Response.Status httpStatusCode) {
         super("The API call failed due to an unexpected HTTP error: " + httpStatusCode);
         this.httpStatusCode = httpStatusCode;
         this.apiErrorMessage = "";
@@ -43,7 +42,7 @@ public class CreateSendHttpException extends CreateSendException {
     public CreateSendHttpException(String message, int httpStatusCode, int apiErrorCode, String apiErrorMessage) {
         super(message);
         
-        this.httpStatusCode = Status.fromStatusCode(httpStatusCode);
+        this.httpStatusCode = Response.Status.fromStatusCode(httpStatusCode);
         this.apiErrorCode = apiErrorCode;
         this.apiErrorMessage = apiErrorMessage;
     }
@@ -51,7 +50,7 @@ public class CreateSendHttpException extends CreateSendException {
     /**
      * @return The HTTP Status code from the failed request
      */
-    public Status getHttpStatusCode() {
+    public Response.Status getHttpStatusCode() {
         return httpStatusCode;
     }
     

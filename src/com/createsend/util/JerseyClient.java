@@ -26,7 +26,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.createsend.models.PagedResult;
 import com.createsend.util.exceptions.CreateSendException;
-import com.createsend.util.jersey.ResourceFactory;
+import com.createsend.util.jersey.TargetFactory;
 
 public interface JerseyClient {
 	public AuthenticationDetails getAuthenticationDetails();
@@ -38,7 +38,7 @@ public interface JerseyClient {
     public <T> T get(Class<T> klass, ErrorDeserialiser<?> errorDeserialiser, 
             String... pathElements) throws CreateSendException;
     public <T> T get(Class<T> klass, MultivaluedMap<String, String> queryString, 
-            ResourceFactory resourceFactory, String... pathElements) throws CreateSendException;
+            TargetFactory resourceFactory, String... pathElements) throws CreateSendException;
     public <T> PagedResult<T> getPagedResult(Integer page, Integer pageSize, String orderField, 
             String orderDirection, MultivaluedMap<String, String> queryString, String... pathElements) 
             throws CreateSendException;

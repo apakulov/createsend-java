@@ -22,16 +22,17 @@
 package com.createsend.util;
 
 import com.createsend.models.ApiErrorResponse;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.GenericType;
+import org.glassfish.jersey.client.ClientResponse;
 
+import javax.ws.rs.core.Response;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 public class ErrorDeserialiser<T> {
 
-    public ApiErrorResponse<T> getResponse(ClientResponse response) {
+    @SuppressWarnings("unchecked")
+    public ApiErrorResponse<T> getResponse(Response response) {
         ParameterizedType returnType = JerseyClientImpl.getGenericReturnType(this.<T>getClass(), 2);
         Type genericType = this.getClass().getGenericSuperclass();
         if (genericType instanceof ParameterizedType) {
@@ -46,6 +47,6 @@ public class ErrorDeserialiser<T> {
                 // ok to ignore
             }
         }
-        return response.getEntity(new GenericType<ApiErrorResponse<T>>(returnType));
+        return (ApiErrorResponse<T>) response.readEntity(ApiErrorResponse.class);
     }
 }

@@ -33,7 +33,7 @@ import com.createsend.util.ErrorDeserialiser;
 import com.createsend.util.JerseyClientImpl;
 import com.createsend.util.exceptions.CreateSendException;
 import com.createsend.util.jersey.JsonProvider;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
+import org.glassfish.jersey.internal.util.collection.MultivaluedStringMap;
 
 /**
  * Provides methods for accessing all <a href="http://www.campaignmonitor.com/api/segments/" target="_blank">
@@ -183,7 +183,7 @@ public class Segments extends CreateSendBase {
 
     private PagedResult<Subscriber> active(String subscribedFrom,
         Integer page, Integer pageSize, String orderField, String orderDirection) throws CreateSendException {
-        MultivaluedMap<String, String> queryString = new MultivaluedMapImpl(); 
+        MultivaluedMap<String, String> queryString = new MultivaluedStringMap();
         queryString.add("date", subscribedFrom);
         
         return jerseyClient.getPagedResult(page, pageSize, orderField, orderDirection,

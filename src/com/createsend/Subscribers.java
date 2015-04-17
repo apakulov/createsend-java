@@ -33,7 +33,7 @@ import com.createsend.util.AuthenticationDetails;
 import com.createsend.util.ErrorDeserialiser;
 import com.createsend.util.JerseyClientImpl;
 import com.createsend.util.exceptions.CreateSendException;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
+import org.glassfish.jersey.internal.util.collection.MultivaluedStringMap;
 
 /**
  * Provides methods for accessing all <a href="http://www.campaignmonitor.com/api/subscribers/" target="_blank">
@@ -106,7 +106,7 @@ public class Subscribers extends CreateSendBase {
      * Getting subscriber details</a>
      */
     public Subscriber details(String emailAddress) throws CreateSendException {
-        MultivaluedMap<String, String> queryString = new MultivaluedMapImpl();
+        MultivaluedMap<String, String> queryString = new MultivaluedStringMap();
         queryString.add("email", emailAddress);
         
         return jerseyClient.get(Subscriber.class, queryString, "subscribers", listID + ".json");
@@ -121,7 +121,7 @@ public class Subscribers extends CreateSendBase {
      * Getting subscriber history</a>
      */
     public HistoryItem[] history(String emailAddress) throws CreateSendException {
-        MultivaluedMap<String, String> queryString = new MultivaluedMapImpl();
+        MultivaluedMap<String, String> queryString = new MultivaluedStringMap();
         queryString.add("email", emailAddress);
         
         return jerseyClient.get(HistoryItem[].class, queryString, "subscribers", listID, "history.json");
@@ -147,7 +147,7 @@ public class Subscribers extends CreateSendBase {
      * Deleting a subscriber</a>
      */
     public void delete(String emailAddress) throws CreateSendException {
-    	MultivaluedMap<String, String> queryString = new MultivaluedMapImpl();
+    	MultivaluedMap<String, String> queryString = new MultivaluedStringMap();
         queryString.add("email", emailAddress);
         
         jerseyClient.delete(queryString, "subscribers", listID + ".json");
@@ -163,7 +163,7 @@ public class Subscribers extends CreateSendBase {
      * Updating a subscriber</a>
      */
     public void update(String originalEmailAddress, SubscriberToAdd newDetails) throws CreateSendException {
-        MultivaluedMap<String, String> queryString = new MultivaluedMapImpl();
+        MultivaluedMap<String, String> queryString = new MultivaluedStringMap();
         queryString.add("email", originalEmailAddress);
         
         jerseyClient.put(newDetails, queryString, "subscribers", listID + ".json");

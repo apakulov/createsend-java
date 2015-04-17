@@ -21,32 +21,4 @@
  */
 package com.createsend.util.jersey;
 
-import javax.ws.rs.client.ClientRequestContext;
-import javax.ws.rs.client.ClientRequestFilter;
-import javax.ws.rs.core.HttpHeaders;
-import java.io.IOException;
-
-/**
- * Client filter adding Authorization header containing OAuth2 bearer token
- * to the HTTP request, if no such header is already present
- */
-public final class OAuth2BearerTokenFilter implements ClientRequestFilter {
-
-    private final String authentication;
-
-    /**
-     * Creates a new OAuth2 bearer token filter using provided access token.
-     *
-     * @param accessToken The OAuth2 access token to be used in the HTTP request.
-     */
-    public OAuth2BearerTokenFilter(final String accessToken) {
-        authentication = "Bearer " + accessToken;
-    }
-
-    @Override
-    public void filter(ClientRequestContext requestContext) throws IOException {
-        if (!requestContext.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
-            requestContext.getHeaders().add(HttpHeaders.AUTHORIZATION, authentication);
-        }
-    }
-}
+public class UnauthorisedTargetFactory extends TargetFactory {}

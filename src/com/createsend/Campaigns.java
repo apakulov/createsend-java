@@ -23,6 +23,7 @@ package com.createsend;
 
 import java.util.Date;
 
+import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 
 import com.createsend.models.PagedResult;
@@ -42,7 +43,7 @@ import com.createsend.util.ErrorDeserialiser;
 import com.createsend.util.JerseyClientImpl;
 import com.createsend.util.exceptions.CreateSendException;
 import com.createsend.util.jersey.JsonProvider;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
+import org.glassfish.jersey.internal.util.collection.MultivaluedStringMap;
 
 /**
  * Provides methods for accessing all <a href="http://www.campaignmonitor.com/api/campaigns/" target="_blank">
@@ -251,7 +252,7 @@ public class Campaigns extends CreateSendBase {
     
     private PagedResult<BouncedSubscriber> bounces(String bouncesFrom,
         Integer page, Integer pageSize, String orderField, String orderDirection) throws CreateSendException {
-        MultivaluedMap<String, String> queryString = new MultivaluedMapImpl();
+        MultivaluedMap<String, String> queryString = new MultivaluedStringMap();
         queryString.add("date", bouncesFrom);
         
         return jerseyClient.getPagedResult(page, pageSize, orderField, orderDirection, queryString, 
@@ -305,7 +306,7 @@ public class Campaigns extends CreateSendBase {
 
     private PagedResult<CampaignOpen> opens(String opensFrom,
         Integer page, Integer pageSize, String orderField, String orderDirection) throws CreateSendException {
-        MultivaluedMap<String, String> queryString = new MultivaluedMapImpl();
+        MultivaluedMap<String, String> queryString = new MultivaluedStringMap();
         queryString.add("date", opensFrom);
         
         return jerseyClient.getPagedResult(page, pageSize, orderField, orderDirection,
@@ -359,7 +360,7 @@ public class Campaigns extends CreateSendBase {
     
     private PagedResult<CampaignClick> clicks(String clicksFrom,
         Integer page, Integer pageSize, String orderField, String orderDirection) throws CreateSendException {
-        MultivaluedMap<String, String> queryString = new MultivaluedMapImpl();
+        MultivaluedMap<String, String> queryString = new MultivaluedStringMap();
         queryString.add("date", clicksFrom);
         
         return jerseyClient.getPagedResult(page, pageSize, orderField, orderDirection,
@@ -413,7 +414,7 @@ public class Campaigns extends CreateSendBase {
     
     private PagedResult<Subscriber> unsubscribes(String unsubscribesFrom,
         Integer page, Integer pageSize, String orderField, String orderDirection) throws CreateSendException {
-        MultivaluedMap<String, String> queryString = new MultivaluedMapImpl();
+        MultivaluedMap<String, String> queryString = new MultivaluedStringMap();
         queryString.add("date", unsubscribesFrom);
         
         return jerseyClient.getPagedResult(page, pageSize, orderField, orderDirection,
@@ -467,7 +468,7 @@ public class Campaigns extends CreateSendBase {
 
     private PagedResult<Subscriber> spamComplaints(String spamComplaintsFrom,
         Integer page, Integer pageSize, String orderField, String orderDirection) throws CreateSendException {
-        MultivaluedMap<String, String> queryString = new MultivaluedMapImpl();
+        MultivaluedMap<String, String> queryString = new MultivaluedStringMap();
         queryString.add("date", spamComplaintsFrom);
 
         return jerseyClient.getPagedResult(page, pageSize, orderField, orderDirection,

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2013 James Dennes
+ * Copyright (c) 2011 Toby Brain
  * 
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -21,4 +21,30 @@
  */
 package com.createsend.util.jersey;
 
-public class UnauthorisedResourceFactory extends ResourceFactory {}
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.WebTarget;
+
+public class AuthorisedTargetFactory extends TargetFactory {
+//    private HttpBasicAuthFilter apiKeyFilter;
+    private OAuth2BearerTokenFilter oauthTokenFilter;
+
+    public AuthorisedTargetFactory(String accessToken) {
+//        oauthTokenFilter = new OAuth2BearerTokenFilter(accessToken);
+    }
+
+    public AuthorisedTargetFactory(String username, String password) {
+//        apiKeyFilter = new HTTPBasicAuthFilter(username, password);
+    }
+
+    @Override
+    public WebTarget getTarget(Client client, String... pathElements) {
+//        WebTarget resource = super.getTarget(client, pathElements);
+//        resource.request().property().
+//        if (apiKeyFilter != null)
+//	        resource.addFilter(apiKeyFilter);
+//        if (oauthTokenFilter != null)
+//        	resource.addFilter(oauthTokenFilter);
+//        return resource;
+        return null;
+    }
+}

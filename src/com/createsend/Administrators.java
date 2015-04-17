@@ -7,7 +7,7 @@ import com.createsend.models.administrators.AdministratorResult;
 import com.createsend.util.AuthenticationDetails;
 import com.createsend.util.JerseyClientImpl;
 import com.createsend.util.exceptions.CreateSendException;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
+import org.glassfish.jersey.internal.util.collection.MultivaluedStringMap;
 
 public class Administrators extends CreateSendBase {
 
@@ -42,7 +42,7 @@ public class Administrators extends CreateSendBase {
      * Getting subscriber details</a>
      */
     public Administrator details(String emailAddress) throws CreateSendException {
-        MultivaluedMap<String, String> queryString = new MultivaluedMapImpl();
+        MultivaluedMap<String, String> queryString = new MultivaluedStringMap();
         queryString.add("email", emailAddress);
         
         return jerseyClient.get(Administrator.class, queryString, "admins.json");
@@ -56,7 +56,7 @@ public class Administrators extends CreateSendBase {
      * Deleting a subscriber</a>
      */
     public void delete(String emailAddress) throws CreateSendException {
-    	MultivaluedMap<String, String> queryString = new MultivaluedMapImpl();
+    	MultivaluedMap<String, String> queryString = new MultivaluedStringMap();
         queryString.add("email", emailAddress);
         
         jerseyClient.delete(queryString, "admins.json");
@@ -71,7 +71,7 @@ public class Administrators extends CreateSendBase {
      * Updating a subscriber</a>
      */
     public void update(String originalEmailAddress, Administrator newDetails) throws CreateSendException {
-        MultivaluedMap<String, String> queryString = new MultivaluedMapImpl();
+        MultivaluedMap<String, String> queryString = new MultivaluedStringMap();
         queryString.add("email", originalEmailAddress);
         
         jerseyClient.put(newDetails, queryString, "admins.json");
